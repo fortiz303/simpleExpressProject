@@ -14,8 +14,8 @@ http.listen(port);
 
 console.log('es is running baby!')
 //handling a post request
-app.post('/', (request, response) => {
-let dataReceived = request.body;
+app.post('/', (receive, response) => {
+let dataReceived = receive.body;
 let dataToSend = {
   message: 'hi, I received your message'
 };
@@ -24,10 +24,10 @@ console.log('someone made a request');
 console.log('the requester sent the following to us: ', response.message);
 response.send(dataToSend);
 });
-
+//
 //Handling a POST REQUEST with a name of numberSaver
-app.post('/numberSaver', (request,response) =>{
- let clientNumber = request.body.userNumber;
+app.post('/numberSaver', (receive,response) =>{
+ let clientNumber = receive.body.userNumber;
 
 //Check if the file numbers.json exists. If not, create an empty one.
  if(fs.existsSync('numbers.json')==false){
@@ -53,7 +53,9 @@ app.post('/numberSaver', (request,response) =>{
  let jsonToSave = JSON.stringify(objectToSave);
 //Save our JSON string to the numbers,json file
  fs.writeFileSync('numbers.json' , jsonToSave, 'utf8');
+ console.log('the number was succesfully saved');
 
+response.send(objectToSave);
  //console.log(clientNumber);
  response.sendStatus(200);
 });

@@ -12,8 +12,20 @@ $(document).ready(() => {
     let dataSendToServer = {userNumber:value};
 
     $.post('http://localhost:3000/numberSaver',
-    dataSendToServer, (data) => {
+    dataSendToServer, (dataReceivedInResponse) => {
       console.log('the number was sent to the server');
+      console.log(dataReceivedInResponse);
+
+      let array = dataReceivedInResponse.currentNumbers;
+
+      for(let i = 0; i < array.length; i++){
+
+        $('#history').append('<p>' + (i + 1) + ') ' array[i] + '</p>')
+      }
+
+
+      $('#status').html('Congrats your number has been submitted to the server ', dataReceivedInResponse);
+
     });
   });
 });
