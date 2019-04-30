@@ -7,11 +7,40 @@
 
 <body>
 
+    <p>Your name: </p>
+    <input type="text" name='name' id='name'/>
+    <p>Your message</p>
+    <input type="text" name ='message' id='message'/>
+    <button>Submit message</button>
+    <p id = 'result'></p>
+
 <h1>My First Heading</h1>
 <p>My first paragraph.</p>
 <script src = 'scripts/jquery-3.4.0.min.js'></script>
 <script src = 'scripts/scripts.js'></script>
+<button id = 'submit'> Submit message</button>
 <button id= 'request-button'> Button </button>
+<p id = 'result'></p>
+
+<script> 
+
+$(document).ready(()=>{ 
+    console.log('jQuery is ready');
+    $('#submit').click(()=> {
+        let data = {
+            user: $('#name').val(),
+            message: $('#message').val()
+        };  
+        $.post('http://localhost:3000/saveMessage', data, (receivedBackEnd)=>{
+        $('#result').html('your message has been received by the server');
+        })
+    });
+
+});
+
+
+
+</script>
 
 </body>
 </html>
